@@ -1,0 +1,21 @@
+{% extends 'tools/base.html' %}
+
+{% block title %}
+    Planner
+{% endblock %}
+
+{% block body %}
+    <div>
+        <h3>Hello, {{ user.username }}</h3>
+
+        <ul>
+            <li><a href="{% url 'logout' %}">&nbsp;LOG OUT&nbsp;</a></li>
+        </ul>
+    </div>
+
+    <br>
+
+    <div>
+        <h1>Planner</h1>
+    </div>
+{% endblock %}
