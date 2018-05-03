@@ -37,7 +37,7 @@ def loginView(request):
             login(request, user)
             return HttpResponseRedirect(reverse('index'))
         else:
-            return render(request, 'tools/login.html', {'message': 'Invalid credentials.'})
+            return render(request, 'tools/login.html', {'message': 'ERROR: Invalid credentials.'})
 
 def register(request):
     if request.method == 'GET':
@@ -47,7 +47,7 @@ def register(request):
         # Error check user input
         username = request.POST['username'].strip()
         if User.objects.filter(username=username).exists():
-            return render(request, 'tools/register.html', {'message': 'Username already exists.'})
+            return render(request, 'tools/register.html', {'message': 'ERROR: Username already exists.'})
 
         # Process user input
         else:
@@ -112,6 +112,14 @@ def cal(request, date=str(datetime.date.today())):
     return render(request, 'tools/calendar.html', context)
 
 def addMemo(request):
+    # Get Memo categories
+    memoCategories = MemoCategory.objects.filter(userID=request.user.id)
+
+    # Create context to send to template
+    context = {
+        'categories': memoCategories
+    }
+
     if request.method == 'POST':
         # Get name from form
         name = request.POST.get('name').strip()
@@ -133,9 +141,8 @@ def addMemo(request):
         except ValueError:
             validDate = False
         if validDate is False:
-            return render(request, 'tools/memoDetails.html', { \
-                'message': "ERROR: Please enter a date in 'mm/dd/yyyy' format."
-            })
+            context['message'] = "ERROR: Please enter a date in 'mm/dd/yyyy' format."
+            return render(request, 'tools/memoDetails.html', context)
 
         # Get times from form (if any) and do necessary conversions and checks
         startTime = request.POST.get('startTime')
@@ -158,9 +165,8 @@ def addMemo(request):
 
         if (startTime != None) and (endTime != None):
             if endTime < startTime:
-                return render(request, 'tools/memoDetails.html', { \
-                    'message': 'ERROR: End Time cannot be less than Start Time.'
-                })
+                context['message'] = 'ERROR: End Time cannot be less than Start Time.'
+                return render(request, 'tools/memoDetails.html', context)
 
         # Get description from form (if any)
         description = request.POST.get('description').strip()
@@ -174,16 +180,18 @@ def addMemo(request):
         return HttpResponseRedirect(reverse('calendar'))
 
     if request.method == 'GET':
-        # Get Memo categories
-        memoCategories = MemoCategory.objects.filter(userID=request.user.id)
-        context = {
-            'categories': memoCategories
-        }
-
         # Direct user to Memo form
         return render(request, 'tools/memoDetails.html', context)
 
 def memoCategoryManager(request, operation):
+    # Get Memo categories
+    memoCategories = MemoCategory.objects.filter(userID=request.user.id)
+
+    # Create context to send to template
+    context = {
+        'categories': memoCategories
+    }
+
     if request.method == 'POST':
         if operation == 'add':
             # Get name from form
@@ -192,9 +200,8 @@ def memoCategoryManager(request, operation):
             # Validate category name (names are case-sensitive)
             if MemoCategory.objects.filter(userID=request.user.id, name=name).exists():
                 # Return error if category already exists
-                return render(request, 'tools/memoCategory.html', { \
-                    'message': 'Category already exists.'
-                })
+                context['message'] = 'ERROR: Category already exists.'
+                return render(request, 'tools/memoCategory.html', context)
 
             # Add category to database if passsed validation checks
             category = MemoCategory(userID=request.user.id, name=name)
@@ -216,12 +223,6 @@ def memoCategoryManager(request, operation):
             return HttpResponseRedirect(reverse('calendar'))
 
     if request.method == 'GET':
-        # Get Memo categories
-        memoCategories = MemoCategory.objects.filter(userID=request.user.id)
-        context = {
-            'categories': memoCategories
-        }
-
         # Direct user to category manager
         return render(request, 'tools/memoCategory.html', context)
 
