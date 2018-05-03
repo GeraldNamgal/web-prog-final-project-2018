@@ -1,4 +1,37 @@
-/* body {
-    font-family: serif;
+body {
     margin: 20px;
-} */
+}
+
+label[for=startTime], label[for=endTime] {
+    margin-right: 5px;
+}
+
+.category {
+    margin-right: 2px;
+}
+
+table {
+    border-collapse: collapse;
+    width: auto;
+    margin: auto;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {
+    text-align: center;
+    background-color: #eeeeee;
+}
+
+th.month {
+    background-color: seashell;
+}
+
+td {
+    width: 160px;
+    height: 175px;
+    vertical-align: top;
+}

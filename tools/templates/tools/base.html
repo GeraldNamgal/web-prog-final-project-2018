@@ -10,6 +10,8 @@
         <script src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
         <link rel='stylesheet' href="{% static 'tools/css/bootstrap.css' %}">
         <link rel='stylesheet' href="{% static 'tools/css/styles.css' %}">
+        {% block addToHead %}
+        {% endblock %}
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>

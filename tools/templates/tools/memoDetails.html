@@ -1,0 +1,47 @@
+{% extends 'tools/base.html' %}
+
+{% block addToHead %}
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'>
+    <script src='https://code.jquery.com/jquery-1.12.4.js'></script>
+    <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+    <script>
+        $(function() {
+            $('.datepicker').datepicker();
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Memo Details
+{% endblock %}
+
+{% block body %}
+    <div>
+        <ul>
+            <li class='liNav'><a href="{% url 'calendar' %}">CALENDAR</a></li>
+            <li class='liNav'><a href="{% url 'logout' %}">LOG OUT</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h1>Memo Details</h1>
+        {{ message }}
+        <form action='{% url 'addMemo' %}' method='post'>
+            {% csrf_token %}
+            <input name='name' type='text' placeholder='Name' required><br>
+            <label class='category'>Category:</label>
+            <select type='text' name='category'>
+                <option value='select' selected value> -- select -- </option>
+                {% for category in categories  %}
+                    <option value='{{ category.name }}'>{{ category.name }}</option>
+                {% endfor %}
+            </select><br>
+            <input name='date' type='text' class='datepicker' placeholder='Date' required><br>
+            <label for='startTime'>Start Time:</label><input name='startTime' type='time' id='startTime'><br>
+            <label for='endTime'>End Time:</label><input name='endTime' type='time' id='endTime'><br>
+            <textarea name='description' rows='5' cols='50' placeholder='Description'></textarea>
+            <input type='submit' value='Add to Calendar'>
+        </form>
+    </div>
+{% endblock %}

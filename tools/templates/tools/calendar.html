@@ -1,0 +1,28 @@
+{% extends 'tools/base.html' %}
+
+{% block title %}
+    Calendar
+{% endblock %}
+
+{% block body %}
+    <div>
+        <ul>
+            <li><a href="{% url 'index' %}">&nbsp;MAIN&nbsp;</a></li>
+            <li><a href="{% url 'logout' %}">&nbsp;LOG OUT&nbsp;</a></li>
+        </ul>
+    </div>
+
+    <br>
+
+    <div>
+        <h1>Calendar</h1>
+        <div><a href="{% url 'calendarOtherMonth' previousDate %}">&nbsp;PREVIOUS&nbsp;</a></div>
+        <ul>
+            <li><a href="{% url 'addMemo' %}">&nbsp;ADD MEMO&nbsp;</a></li>
+            <ul>
+                <li><a href="{% url 'memoCategoryManager' None %}">&nbsp;MANAGE CATEGORIES&nbsp;</a></li>
+            </ul>
+        </ul>
+        {{ calendar }}
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'tools/base.html' %}
+
+{% block title %}
+    Memo Category
+{% endblock %}
+
+{% block body %}
+    <div>
+        <ul>
+            <li class='liNav'><a href="{% url 'calendar' %}">CALENDAR</a></li>
+            <li class='liNav'><a href="{% url 'logout' %}">LOG OUT</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h1>Memo Category</h1>
+        {{ message }}
+        <form action='{% url 'memoCategoryManager' 'add' %}' method='post'>
+            {% csrf_token %}
+            <input name='name' type='text' placeholder='Category' required>
+            <input type='submit' value='Add Category'>
+        </form>
+
+        <form action='{% url 'memoCategoryManager' 'delete' %}' method='post'>
+            {% csrf_token %}
+            <label class='category'>Category:</label>
+            <select type='text' name='name'>
+                <option value='select' selected value> -- select -- </option>
+                {% for category in categories  %}
+                    <option value='{{ category.name }}'>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <input type='submit' value='Delete Category'>
+        </form>
+    </div>
+{% endblock %}
