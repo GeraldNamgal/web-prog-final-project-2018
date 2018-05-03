@@ -5,9 +5,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.apps import apps
 import datetime
-from .forms import MemoForm
 from django.db.models import Q
-from calendar import HTMLCalendar
+import calendar
 from django.utils.safestring import mark_safe
 
 # Import models
@@ -78,18 +77,35 @@ def logoutView(request):
     return render(request, 'tools/login.html', {'message': 'Logged out.'})
 
 # Default calendar is the current month's, hence the 'date' argument
-def calendar(request, date=str(datetime.date.today())):
-    # Create a calendar
-    htmlCalendar = HTMLCalendar()
+def cal(request, date=str(datetime.date.today())):
+    # Create calendar
+    htmlCalendar = calendar.HTMLCalendar()
     day = datetime.datetime.strptime(date, '%Y-%m-%d')
-    # Get first day of last month (format is 'yyyy-mm-dd')
+    cal = htmlCalendar.formatmonth(day.year, day.month, withyear=True)
+    cal = cal.replace('class="mon"', 'class="day"')
+    cal = cal.replace('class="tue"', 'class="day"')
+    cal = cal.replace('class="wed"', 'class="day"')
+    cal = cal.replace('class="thu"', 'class="day"')
+    cal = cal.replace('class="fri"', 'class="day"')
+    cal = cal.replace('class="sat"', 'class="day"')
+    cal = cal.replace('class="sun"', 'class="day"')
+    cal = cal.replace('class="noday"', 'class="day"')
+
+    # Get first day of last month (format is 'yyyy-mm-dd...')
     previousMonthDate = (day.replace(day=1) - datetime.timedelta(1)).replace(day=1)
     # Convert previous month's date to string
     previousDate = previousMonthDate.strftime('%Y-%m-%d')
-    calendar = htmlCalendar.formatmonth(day.year, day.month, withyear=True)
+    # Get first day of next month (format is 'yyyy-mm-dd...')
+    nextMonthDate = (day.replace(day=calendar.monthrange(day.year, day.month)[1]) + \
+        datetime.timedelta(1)).replace(day=1)
+    # Convert next month's date to string
+    nextDate = nextMonthDate.strftime('%Y-%m-%d')
+
+    # Create context to pass to template
     context = {
-        'calendar': mark_safe(calendar),
-        'previousDate': previousDate
+        'cal': mark_safe(cal),
+        'previousDate': previousDate,
+        'nextDate': nextDate
     }
 
     # Return Calendar page

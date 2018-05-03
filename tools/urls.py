@@ -10,6 +10,6 @@ urlpatterns = [
     path('addMemo', views.addMemo, name='addMemo'),
     # For 'operation' I used 'add', 'delete', or None
     path('<str:operation>/memoCategoryManager', views.memoCategoryManager, name='memoCategoryManager'),
-    path('calendar', views.calendar, name='calendar'),
-    path('calendar/<str:date>', views.calendar, name='calendarOtherMonth')
+    path('calendar', views.cal, name='calendar'),
+    path('calendar/<str:date>', views.cal, name='calendarOtherMonth')
 ]

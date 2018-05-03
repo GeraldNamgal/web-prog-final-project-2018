@@ -16,13 +16,18 @@
 
     <div>
         <h1>Calendar</h1>
-        <div><a href="{% url 'calendarOtherMonth' previousDate %}">&nbsp;PREVIOUS&nbsp;</a></div>
         <ul>
             <li><a href="{% url 'addMemo' %}">&nbsp;ADD MEMO&nbsp;</a></li>
             <ul>
                 <li><a href="{% url 'memoCategoryManager' None %}">&nbsp;MANAGE CATEGORIES&nbsp;</a></li>
             </ul>
         </ul>
-        {{ calendar }}
+        <div id='calendarContainer'>
+            <div id='calendarNav'>
+                <div id='previous'><a href="{% url 'calendarOtherMonth' previousDate %}">&nbsp;< PREVIOUS&nbsp;</a></div>
+                <div id='next'><a href="{% url 'calendarOtherMonth' nextDate %}">&nbsp;NEXT >&nbsp;</a></div>
+            </div>
+            {{ cal }}
+        </div>
     </div>
 {% endblock %}

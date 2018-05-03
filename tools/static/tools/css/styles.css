@@ -10,28 +10,46 @@ label[for=startTime], label[for=endTime] {
     margin-right: 2px;
 }
 
-table {
+table.month {
     border-collapse: collapse;
     width: auto;
     margin: auto;
 }
 
-th, td {
+th.month, th.day, td.day {
     border: 1px solid black;
     padding: 5px;
 }
 
-th {
+th.day {
     text-align: center;
     background-color: #eeeeee;
 }
 
 th.month {
+    text-align: center;
     background-color: seashell;
 }
 
-td {
+td.day {
     width: 160px;
     height: 175px;
     vertical-align: top;
+}
+
+#previous, #next {
+    display: inline-block;
+}
+
+#previous {
+    margin-right: 10px;
+}
+
+#next {
+    margin-left: 10px;
+}
+
+#calendarNav {
+  display: table;
+  margin: 0 auto;
 }
