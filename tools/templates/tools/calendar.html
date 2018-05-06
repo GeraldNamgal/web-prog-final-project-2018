@@ -39,6 +39,7 @@
         <div id='calendarContainer'>
             <form action='{% url 'changeCalendarView' %}' method='post'>
                 {% csrf_token %}
+                <input type='hidden' name='monthDay' value='{{ monthDay }}'>
                 <label style='margin-top:17px;' class='labelCategory'>View:</label>
                 <select id='categoryDropdown' type='text' name='category'>
                     {% if selectedCategory != 'All' %}

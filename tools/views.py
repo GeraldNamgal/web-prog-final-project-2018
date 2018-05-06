@@ -84,6 +84,7 @@ def cal(request, date=str(datetime.date.today())):
     monthDay = datetime.datetime.strptime(date, '%Y-%m-%d')
     if request.method =='POST':
         selectedCategory = request.POST.get('category')
+        monthDay = datetime.datetime.strptime(request.POST.get('monthDay'), '%Y-%m-%d')
     else:
         selectedCategory = 'All'
     htmlCalendar = Cal(monthDay, request.user.id, selectedCategory)
@@ -107,6 +108,8 @@ def cal(request, date=str(datetime.date.today())):
     nextMonthDate = htmlCalendar.getNextMonthDate()
     # Convert next month's date to string
     nextMonthDate = nextMonthDate.strftime('%Y-%m-%d')
+    # Convert monthDay to string
+    monthDay = monthDay.strftime('%Y-%m-%d')
 
     # Get Memo categories
     memoCategories = MemoCategory.objects.filter(userID=request.user.id)
@@ -117,7 +120,8 @@ def cal(request, date=str(datetime.date.today())):
         'selectedCategory': selectedCategory,
         'previousMonthDate': previousMonthDate,
         'nextMonthDate': nextMonthDate,
-        'memoCategories': memoCategories
+        'memoCategories': memoCategories,
+        'monthDay': monthDay
     }
 
     # Return Calendar page
