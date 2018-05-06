@@ -84,7 +84,6 @@ def cal(request, date=str(datetime.date.today()), selectedCategory='All'):
     monthDay = datetime.datetime.strptime(date, '%Y-%m-%d')
     if request.method =='POST':
         selectedCategory = request.POST.get('category')
-        monthDay = datetime.datetime.strptime(request.POST.get('monthDay'), '%Y-%m-%d')
     htmlCalendar = Cal(monthDay, request.user.id, selectedCategory)
     cal = htmlCalendar.formatmonth(monthDay.year, monthDay.month, withyear=True)
 
@@ -246,7 +245,7 @@ def memo(request, monthDay, memoID, selectedCategory):
         context = {
             # 'memoID' should be unique to the user (hence don't need to filter by 'userID')
             'memo': Memo.objects.get(pk=memoID),
-            'returnURL': reverse(viewname='returnToCalendar', kwargs={'date': monthDay, \
+            'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
                 'selectedCategory': selectedCategory})
         }
 

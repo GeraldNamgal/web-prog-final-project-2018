@@ -25,6 +25,7 @@ class Cal(calendar.HTMLCalendar):
         if MemoCategory.objects.filter(userID=self.userID, name=self.selectedCategory).exists():
             memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
                 day__year=self.monthDay.year, category__name__contains=self.selectedCategory)
+        # Return all memos by default (if category is not specified / is 'All')
         else:
             memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
                 day__year=self.monthDay.year)

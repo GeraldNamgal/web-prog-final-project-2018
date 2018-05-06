@@ -37,7 +37,7 @@
             </ul>
         </ul>
         <div id='calendarContainer'>
-            <form action='{% url 'changeCalendarView' %}' method='post'>
+            <form action='{% url 'calendarDate' monthDay %}' method='post'>
                 {% csrf_token %}
                 <input type='hidden' name='monthDay' value='{{ monthDay }}'>
                 <label style='margin-top:17px;' class='labelCategory'>View:</label>
@@ -60,8 +60,8 @@
                 </select>
             </form>
             <div id='calendarNav'>
-                <div id='previous'><a href="{% url 'calendarOtherMonth' previousMonthDate %}"><&nbsp;PREVIOUS</a></div>
-                <div id='next'><a href="{% url 'calendarOtherMonth' nextMonthDate %}">NEXT&nbsp;></a></div>
+                <div id='previous'><a href="{% url 'calendarDate' previousMonthDate %}"><&nbsp;PREVIOUS</a></div>
+                <div id='next'><a href="{% url 'calendarDate' nextMonthDate %}">NEXT&nbsp;></a></div>
             </div>
             {{ cal }}
         </div>
