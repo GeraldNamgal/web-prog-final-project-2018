@@ -6,22 +6,22 @@ label[for=startTime], label[for=endTime] {
     margin-right: 5px;
 }
 
-.category {
+.labelCategory {
     margin-right: 2px;
 }
 
 table.month {
-    border-collapse: collapse;
     width: auto;
     margin: auto;
 }
 
-th.month, th.day, td.day {
+th.month, th.dayOfWeek, td.dayOfWeek {
     border: 1px solid black;
+    border-collapse: collapse;
     padding: 5px;
 }
 
-th.day {
+th.dayOfWeek {
     text-align: center;
     background-color: #eeeeee;
 }
@@ -31,7 +31,7 @@ th.month {
     background-color: seashell;
 }
 
-td.day {
+td.dayOfWeek {
     width: 160px;
     height: 175px;
     vertical-align: top;
@@ -50,7 +50,12 @@ td.day {
 }
 
 #calendarNav {
-  display: table;
-  margin: 0 auto;
-  padding: 5px;
+    display: table;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+.dayMemos {
+    margin-top: 7px;
+    padding-left: 20px;
 }

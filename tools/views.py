@@ -9,8 +9,11 @@ from django.db.models import Q
 import calendar
 from django.utils.safestring import mark_safe
 
-# Import models
+# Import your models
 from .models import Memo, MemoCategory
+
+# Import your own miscellaneous things
+from .cal import Cal
 
 def index(request):
     # If user is not signed in
@@ -76,36 +79,45 @@ def logoutView(request):
     logout(request)
     return render(request, 'tools/login.html', {'message': 'Logged out.'})
 
-# Default calendar is the current month's, hence the 'date' argument
 def cal(request, date=str(datetime.date.today())):
-    # Create calendar
-    htmlCalendar = calendar.HTMLCalendar()
-    day = datetime.datetime.strptime(date, '%Y-%m-%d')
-    cal = htmlCalendar.formatmonth(day.year, day.month, withyear=True)
-    cal = cal.replace('class="mon"', 'class="day"')
-    cal = cal.replace('class="tue"', 'class="day"')
-    cal = cal.replace('class="wed"', 'class="day"')
-    cal = cal.replace('class="thu"', 'class="day"')
-    cal = cal.replace('class="fri"', 'class="day"')
-    cal = cal.replace('class="sat"', 'class="day"')
-    cal = cal.replace('class="sun"', 'class="day"')
-    cal = cal.replace('class="noday"', 'class="day"')
+    # Retrieve calendar (right now we're using HTMLCalendar)
+    monthDay = datetime.datetime.strptime(date, '%Y-%m-%d')
+    if request.method =='POST':
+        selectedCategory = request.POST.get('category')
+    else:
+        selectedCategory = 'All'
+    htmlCalendar = Cal(monthDay, selectedCategory)
+    cal = htmlCalendar.formatmonth(monthDay.year, monthDay.month, withyear=True)
 
-    # Get first day of last month (format is 'yyyy-mm-dd...')
-    previousMonthDate = (day.replace(day=1) - datetime.timedelta(1)).replace(day=1)
+    # Modify classes in calendar for formatting, etc.
+    cal = cal.replace('class="mon"', 'class="mon dayOfWeek"')
+    cal = cal.replace('class="tue"', 'class="tue dayOfWeek"')
+    cal = cal.replace('class="wed"', 'class="wed dayOfWeek"')
+    cal = cal.replace('class="thu"', 'class="thu dayOfWeek"')
+    cal = cal.replace('class="fri"', 'class="fri dayOfWeek"')
+    cal = cal.replace('class="sat"', 'class="sat dayOfWeek"')
+    cal = cal.replace('class="sun"', 'class="sun dayOfWeek"')
+    cal = cal.replace('class="noday"', 'class="noday dayOfWeek"')
+
+    # Get first day of last month (a datetime object with format 'yyyy-mm-dd...')
+    previousMonthDate = htmlCalendar.getPrevMonthDate()
     # Convert previous month's date to string
-    previousDate = previousMonthDate.strftime('%Y-%m-%d')
-    # Get first day of next month (format is 'yyyy-mm-dd...')
-    nextMonthDate = (day.replace(day=calendar.monthrange(day.year, day.month)[1]) + \
-        datetime.timedelta(1)).replace(day=1)
+    previousMonthDate = previousMonthDate.strftime('%Y-%m-%d')
+    # Get first day of next month (a datetime object with format 'yyyy-mm-dd...')
+    nextMonthDate = htmlCalendar.getNextMonthDate()
     # Convert next month's date to string
-    nextDate = nextMonthDate.strftime('%Y-%m-%d')
+    nextMonthDate = nextMonthDate.strftime('%Y-%m-%d')
+
+    # Get Memo categories
+    memoCategories = MemoCategory.objects.filter(userID=request.user.id)
 
     # Create context to pass to template
     context = {
         'cal': mark_safe(cal),
-        'previousDate': previousDate,
-        'nextDate': nextDate
+        'selectedCategory': selectedCategory,
+        'previousMonthDate': previousMonthDate,
+        'nextMonthDate': nextMonthDate,
+        'memoCategories': memoCategories
     }
 
     # Return Calendar page
@@ -225,6 +237,24 @@ def memoCategoryManager(request, operation):
     if request.method == 'GET':
         # Direct user to category manager
         return render(request, 'tools/memoCategory.html', context)
+
+def memo(request, memoID):
+    # Get context to send to template
+    if Memo.objects.filter(pk=memoID).exists():
+        context = {
+            'memo': Memo.objects.get(pk=memoID)
+        }
+
+        # Return user to the Memo information page
+        return render(request, 'tools/memo.html', context)
+
+    else:
+        context = {
+            'message': 'ERROR: Memo does not exist.',
+            'returnURL': reverse(viewname='calendar')
+        }
+
+        return render(request, 'tools/error.html', context)
 
     # TODO: Allow users to add 'communal' categories, e.g., for a communal / social calendar?
 

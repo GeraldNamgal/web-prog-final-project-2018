@@ -11,5 +11,8 @@ urlpatterns = [
     # For 'operation' I used 'add', 'delete', or None
     path('<str:operation>/memoCategoryManager', views.memoCategoryManager, name='memoCategoryManager'),
     path('calendar', views.cal, name='calendar'),
-    path('calendar/<str:date>', views.cal, name='calendarOtherMonth')
+    path('<str:date>/calendar', views.cal, name='calendarOtherMonth'),
+    # Also used 'All' for 'memoCategory' to get all Memo categories
+    path('calendar/memoCategory', views.cal, name='changeCalendarView'),
+    path('<int:memoID>/memo', views.memo, name='memo')
 ]

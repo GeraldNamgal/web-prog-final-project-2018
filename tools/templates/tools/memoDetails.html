@@ -20,7 +20,7 @@
     <div>
         <ul>
             <li class='liNav'><a href="{% url 'calendar' %}">CALENDAR</a></li>
-            <li class='liNav'><a href="{% url 'logout' %}">LOG OUT</a></li>
+            <li class='liNav'><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
         </ul>
     </div>
 
@@ -30,7 +30,7 @@
         <form action='{% url 'addMemo' %}' method='post'>
             {% csrf_token %}
             <input name='name' type='text' placeholder='Name' required><br>
-            <label class='category'>Category:</label>
+            <label class='labelCategory'>Category:</label>
             <select type='text' name='category'>
                 <option value='select' selected value> -- select -- </option>
                 {% for category in categories  %}

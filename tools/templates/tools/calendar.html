@@ -1,5 +1,19 @@
 {% extends 'tools/base.html' %}
 
+{% block addToHead %}
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'>
+    <script src='https://code.jquery.com/jquery-1.12.4.js'></script>
+    <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
+    <script>
+        $(function() {
+            $('#categoryDropdown').change(function() {
+                this.form.submit();
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block title %}
     Calendar
 {% endblock %}
@@ -7,8 +21,8 @@
 {% block body %}
     <div>
         <ul>
-            <li><a href="{% url 'index' %}">&nbsp;MAIN&nbsp;</a></li>
-            <li><a href="{% url 'logout' %}">&nbsp;LOG OUT&nbsp;</a></li>
+            <li><a href="{% url 'index' %}">MAIN</a></li>
+            <li><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
         </ul>
     </div>
 
@@ -17,15 +31,36 @@
     <div>
         <h1>Calendar</h1>
         <ul>
-            <li><a href="{% url 'addMemo' %}">&nbsp;ADD MEMO&nbsp;</a></li>
+            <li><a href="{% url 'addMemo' %}">ADD&nbsp;MEMO</a></li>
             <ul>
-                <li><a href="{% url 'memoCategoryManager' None %}">&nbsp;MANAGE CATEGORIES&nbsp;</a></li>
+                <li><a href="{% url 'memoCategoryManager' None %}">MANAGE&nbsp;CATEGORIES</a></li>
             </ul>
         </ul>
         <div id='calendarContainer'>
+            <form action='{% url 'changeCalendarView' %}' method='post'>
+                {% csrf_token %}
+                <label style='margin-top:17px;' class='labelCategory'>View:</label>
+                <select id='categoryDropdown' type='text' name='category'>
+                    {% if selectedCategory != 'All' %}
+                        <option value='All'>All</option>
+                        {% for category in memoCategories  %}
+                            {% if category.name == selectedCategory %}
+                                <option value='{{ category.name }}' selected value>{{ category.name }}</option>
+                            {% else %}
+                                <option value='{{ category.name }}'>{{ category.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <option value='All' selected value>All</option>
+                        {% for category in memoCategories  %}
+                            <option value='{{ category.name }}'>{{ category.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </form>
             <div id='calendarNav'>
-                <div id='previous'><a href="{% url 'calendarOtherMonth' previousDate %}">&nbsp;< PREVIOUS&nbsp;</a></div>
-                <div id='next'><a href="{% url 'calendarOtherMonth' nextDate %}">&nbsp;NEXT >&nbsp;</a></div>
+                <div id='previous'><a href="{% url 'calendarOtherMonth' previousMonthDate %}"><&nbsp;PREVIOUS</a></div>
+                <div id='next'><a href="{% url 'calendarOtherMonth' nextMonthDate %}">NEXT&nbsp;></a></div>
             </div>
             {{ cal }}
         </div>

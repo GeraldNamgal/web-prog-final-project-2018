@@ -1,0 +1,39 @@
+{% extends 'tools/base.html' %}
+
+{% block title %}
+    Memo
+{% endblock %}
+
+{% block body %}
+    <div>
+        <ul>
+            <li><a href="{% url 'calendar' %}">CALENDAR</a></li>
+            <li><a href="{% url 'index' %}">MAIN</a></li>
+            <li><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
+        </ul>
+    </div>
+
+    <br>
+
+    <div>
+        <h2>{{ memo.day }}</h2><br>
+
+        <h3>{{ memo.name }}</h3>
+
+        {% if memo.startTime %}
+            <div>Start Time: {{ memo.startTime }}</div>
+        {% endif %}
+
+        {% if memo.endTime %}
+            <div>End Time: {{ memo.endTime }}</div>
+        {% endif %}
+
+        {% if memo.category %}
+            <div>Category: {{ memo.category.name }}</div>
+        {% endif %}
+
+        {% if memo.description %}
+            <div>Description: {{ memo.description }}</div>
+        {% endif %}
+    </div>
+{% endblock %}
