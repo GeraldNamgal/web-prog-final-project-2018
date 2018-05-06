@@ -31,7 +31,8 @@ class Cal(calendar.HTMLCalendar):
         memosHTML = '<ul class="dayMemos">'
         for memo in memosForDay:
             # Add memo link to day on calendar
-            url = reverse(viewname='memo', kwargs={'memoID': memo.pk})
+            url = reverse(viewname='memo', kwargs={'monthDay':(self.monthDay).strftime('%Y-%m-%d'), \
+                'memoID': memo.pk, 'selectedCategory': self.selectedCategory})
             if memo.category is not None:
                 memosHTML += f'<li class="dayMemo {memo.category.name}"><a href={url}>{memo.name}</a></li>'
             else:

@@ -79,14 +79,12 @@ def logoutView(request):
     logout(request)
     return render(request, 'tools/login.html', {'message': 'Logged out.'})
 
-def cal(request, date=str(datetime.date.today())):
+def cal(request, date=str(datetime.date.today()), selectedCategory='All'):
     # Retrieve calendar (right now we're using HTMLCalendar)
     monthDay = datetime.datetime.strptime(date, '%Y-%m-%d')
     if request.method =='POST':
         selectedCategory = request.POST.get('category')
         monthDay = datetime.datetime.strptime(request.POST.get('monthDay'), '%Y-%m-%d')
-    else:
-        selectedCategory = 'All'
     htmlCalendar = Cal(monthDay, request.user.id, selectedCategory)
     cal = htmlCalendar.formatmonth(monthDay.year, monthDay.month, withyear=True)
 
@@ -242,12 +240,14 @@ def memoCategoryManager(request, operation):
         # Direct user to category manager
         return render(request, 'tools/memoCategory.html', context)
 
-def memo(request, memoID):
+def memo(request, monthDay, memoID, selectedCategory):
     # Get context to send to template
     if Memo.objects.filter(pk=memoID).exists():
         context = {
             # 'memoID' should be unique to the user (hence don't need to filter by 'userID')
-            'memo': Memo.objects.get(pk=memoID)
+            'memo': Memo.objects.get(pk=memoID),
+            'returnURL': reverse(viewname='returnToCalendar', kwargs={'date': monthDay, \
+                'selectedCategory': selectedCategory})
         }
 
         # Return user to the Memo information page
@@ -263,4 +263,4 @@ def memo(request, memoID):
 
     # TODO: Allow users to add 'communal' categories, e.g., for a communal / social calendar?
 
-# TODO: Allows users to alter their memo's, e.g., change the category, etc.
+# TODO: Allows users to alter their memo's, e.g., delete a memo, change the category, etc.

@@ -12,7 +12,8 @@ urlpatterns = [
     path('<str:operation>/memoCategoryManager', views.memoCategoryManager, name='memoCategoryManager'),
     path('calendar', views.cal, name='calendar'),
     path('<str:date>/calendar', views.cal, name='calendarOtherMonth'),
-    # Also used 'All' for 'memoCategory' to get all Memo categories
+    # For POST request. Used 'All' for 'memoCategory' to get all Memo categories
     path('calendar/memoCategory', views.cal, name='changeCalendarView'),
-    path('<int:memoID>/memo', views.memo, name='memo')
+    path('<str:date>/<str:selectedCategory>/calendar', views.cal, name='returnToCalendar'),
+    path('<str:monthDay>/<int:memoID>/<str:selectedCategory>/memo', views.memo, name='memo')
 ]
