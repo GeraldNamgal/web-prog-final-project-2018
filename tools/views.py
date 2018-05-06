@@ -86,7 +86,7 @@ def cal(request, date=str(datetime.date.today())):
         selectedCategory = request.POST.get('category')
     else:
         selectedCategory = 'All'
-    htmlCalendar = Cal(monthDay, selectedCategory)
+    htmlCalendar = Cal(monthDay, request.user.id, selectedCategory)
     cal = htmlCalendar.formatmonth(monthDay.year, monthDay.month, withyear=True)
 
     # Modify classes in calendar for formatting, etc.
@@ -242,6 +242,7 @@ def memo(request, memoID):
     # Get context to send to template
     if Memo.objects.filter(pk=memoID).exists():
         context = {
+            # 'memoID' should be unique to the user (hence don't need to filter by 'userID')
             'memo': Memo.objects.get(pk=memoID)
         }
 

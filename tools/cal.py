@@ -14,18 +14,19 @@ from .models import Memo, MemoCategory
 
 # Create a calendar class that overrides the HTMLCalendar
 class Cal(calendar.HTMLCalendar):
-    def __init__(self, monthDay, selectedCategory):
+    def __init__(self, monthDay, userID, selectedCategory):
         super(Cal, self).__init__()
         self.monthDay = monthDay
+        self.userID = userID
         self.selectedCategory = selectedCategory
 
     def formatday(self, day, weekday):
         # Add memo links to the day (if any)
-        if MemoCategory.objects.filter(name=self.selectedCategory).exists():
-            memosForDay = Memo.objects.filter(day__day=day, day__month=self.monthDay.month, \
-                day__year=self.monthDay.year)
+        if MemoCategory.objects.filter(userID=self.userID, name=self.selectedCategory).exists():
+            memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
+                day__year=self.monthDay.year, category__name__contains=self.selectedCategory)
         else:
-            memosForDay = Memo.objects.filter(day__day=day, day__month=self.monthDay.month, \
+            memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
                 day__year=self.monthDay.year)
         memosHTML = '<ul class="dayMemos">'
         for memo in memosForDay:
