@@ -240,16 +240,16 @@ def memoCategoryManager(request, operation):
         return render(request, 'tools/memoCategory.html', context)
 
 def memo(request, monthDay, memoID, selectedCategory):
-    # Get context to send to template
+    # Get context to send to template; 'memoID' is unique to user (don't need to filter by 'userID')
     if Memo.objects.filter(pk=memoID).exists():
         context = {
-            # 'memoID' should be unique to the user (hence don't need to filter by 'userID')
+            # 'memoID' is unique to user (don't need to filter by 'userID')
             'memo': Memo.objects.get(pk=memoID),
             'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
                 'selectedCategory': selectedCategory})
         }
 
-        # Return user to the Memo information page
+        # Return user to the Memo's information page
         return render(request, 'tools/memo.html', context)
 
     else:
