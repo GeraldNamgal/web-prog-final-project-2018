@@ -12,6 +12,8 @@ from django.utils.safestring import mark_safe
 # Import your models
 from .models import Memo, MemoCategory
 
+# Code referenced from: https://alexpnt.github.io/2017/07/15/django-calendar/
+
 # Create a calendar class that overrides the HTMLCalendar
 class Cal(calendar.HTMLCalendar):
     def __init__(self, monthDay, userID, selectedCategory):
