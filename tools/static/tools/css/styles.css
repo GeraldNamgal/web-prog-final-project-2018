@@ -37,25 +37,29 @@ td.dayOfWeek {
     vertical-align: top;
 }
 
-#previous, #next {
+#previous, #next, #todayCalendar, .separator {
     display: inline-block;
 }
 
-#previous {
+.separator {
+    margin: 0px 25px 0px 25px;
+}
+
+/* #previous {
     margin-right: 10px;
 }
 
 #next {
     margin-left: 10px;
-}
+} */
 
 #calendarNav {
     display: table;
     margin: 0 auto;
-    padding: 5px;
+    padding: 5px 0px 17px 0px;
 }
 
 .dayMemos {
-    margin-top: 7px;
+    margin-top: 10px;
     padding-left: 20px;
 }

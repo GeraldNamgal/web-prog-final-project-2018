@@ -124,13 +124,17 @@ def cal(request, date=str(datetime.date.today()), selectedCategory='All'):
     # Return Calendar page
     return render(request, 'tools/calendar.html', context)
 
-def addMemo(request):
+def addMemo(request, monthDay, selectedCategory):
     # Get Memo categories
     memoCategories = MemoCategory.objects.filter(userID=request.user.id)
 
     # Create context to send to template
     context = {
-        'categories': memoCategories
+        'categories': memoCategories,
+        'monthDay': monthDay,
+        'selectedCategory': selectedCategory,
+        'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
+            'selectedCategory': selectedCategory})
     }
 
     if request.method == 'POST':
@@ -190,7 +194,8 @@ def addMemo(request):
         memo.save()
 
         # Return user to the Calendar page
-        return HttpResponseRedirect(reverse('calendar'))
+        return HttpResponseRedirect(reverse(viewname='calendarState', kwargs={'date': monthDay, \
+            'selectedCategory': selectedCategory}))
 
     if request.method == 'GET':
         # Direct user to Memo form
@@ -221,7 +226,7 @@ def memoCategoryManager(request, operation):
             category.save()
 
             # Return user to the Calendar page
-            return HttpResponseRedirect(reverse('calendar'))
+            return HttpResponseRedirect(reverse('calendarToday'))
 
         # Allow users to delete categories
         if operation == 'delete':
@@ -233,7 +238,7 @@ def memoCategoryManager(request, operation):
                 MemoCategory.objects.get(userID=request.user.id, name=name).delete()
 
             # Return user to the Calendar page
-            return HttpResponseRedirect(reverse('calendar'))
+            return HttpResponseRedirect(reverse('calendarToday'))
 
     if request.method == 'GET':
         # Direct user to category manager
@@ -255,11 +260,8 @@ def memo(request, monthDay, memoID, selectedCategory):
     else:
         context = {
             'message': 'ERROR: Memo does not exist.',
-            'returnURL': reverse(viewname='calendar')
+            'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
+                'selectedCategory': selectedCategory})
         }
 
         return render(request, 'tools/error.html', context)
-
-    # TODO: Allow users to add 'communal' categories, e.g., for a communal / social calendar?
-
-# TODO: Allows users to alter their memo's, e.g., delete a memo, change the category, etc.

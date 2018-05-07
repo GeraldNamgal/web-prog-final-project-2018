@@ -31,7 +31,7 @@
     <div>
         <h1>Calendar</h1>
         <ul>
-            <li><a href="{% url 'addMemo' %}">ADD&nbsp;MEMO</a></li>
+            <li><a href="{% url 'addMemo' monthDay selectedCategory %}">ADD&nbsp;MEMO</a></li>
             <ul>
                 <li><a href="{% url 'memoCategoryManager' None %}">MANAGE&nbsp;CATEGORIES</a></li>
             </ul>
@@ -40,7 +40,7 @@
             <form action='{% url 'calendarDate' monthDay %}' method='post'>
                 {% csrf_token %}
                 <input type='hidden' name='monthDay' value='{{ monthDay }}'>
-                <label style='margin-top:17px;' class='labelCategory'>View:</label>
+                <label style='margin-top:17px;' class='labelCategory'>Filter:</label>
                 <select id='categoryDropdown' type='text' name='category'>
                     {% if selectedCategory != 'All' %}
                         <option value='All'>All</option>
@@ -60,8 +60,11 @@
                 </select>
             </form>
             <div id='calendarNav'>
-                <div id='previous'><a href="{% url 'calendarDate' previousMonthDate %}"><&nbsp;PREVIOUS</a></div>
-                <div id='next'><a href="{% url 'calendarDate' nextMonthDate %}">NEXT&nbsp;></a></div>
+                <div id='previous'><a href="{% url 'calendarDate' previousMonthDate %}"><&nbsp;&nbsp;&nbsp;PREVIOUS</a></div>
+                <div class='separator'>|</div>
+                <div id='todayCalendar'><a href="{% url 'calendarToday' %}">TODAY'S&nbsp;CALENDAR</a></div>
+                <div class='separator'>|</div>
+                <div id='next'><a href="{% url 'calendarDate' nextMonthDate %}">NEXT&nbsp;&nbsp;&nbsp;></a></div>
             </div>
             {{ cal }}
         </div>
