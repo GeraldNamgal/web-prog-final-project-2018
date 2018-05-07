@@ -33,7 +33,7 @@
         <ul>
             <li><a href="{% url 'addMemo' monthDay selectedCategory %}">ADD&nbsp;MEMO</a></li>
             <ul>
-                <li><a href="{% url 'memoCategoryManager' None %}">MANAGE&nbsp;CATEGORIES</a></li>
+                <li><a href="{% url 'memoCategoryManager' monthDay selectedCategory None %}">MANAGE&nbsp;CATEGORIES</a></li>
             </ul>
         </ul>
         <div id='calendarContainer'>

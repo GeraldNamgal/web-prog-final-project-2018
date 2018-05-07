@@ -201,13 +201,17 @@ def addMemo(request, monthDay, selectedCategory):
         # Direct user to Memo form
         return render(request, 'tools/memoDetails.html', context)
 
-def memoCategoryManager(request, operation):
+def memoCategoryManager(request, monthDay, selectedCategory, operation):
     # Get Memo categories
     memoCategories = MemoCategory.objects.filter(userID=request.user.id)
 
     # Create context to send to template
     context = {
-        'categories': memoCategories
+        'categories': memoCategories,
+        'monthDay': monthDay,
+        'selectedCategory': selectedCategory,
+        'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
+            'selectedCategory': selectedCategory})
     }
 
     if request.method == 'POST':
@@ -226,7 +230,8 @@ def memoCategoryManager(request, operation):
             category.save()
 
             # Return user to the Calendar page
-            return HttpResponseRedirect(reverse('calendarToday'))
+            return HttpResponseRedirect(reverse(viewname='calendarState', kwargs={'date': monthDay, \
+                'selectedCategory': selectedCategory}))
 
         # Allow users to delete categories
         if operation == 'delete':
@@ -238,7 +243,8 @@ def memoCategoryManager(request, operation):
                 MemoCategory.objects.get(userID=request.user.id, name=name).delete()
 
             # Return user to the Calendar page
-            return HttpResponseRedirect(reverse('calendarToday'))
+            return HttpResponseRedirect(reverse(viewname='calendarState', kwargs={'date': monthDay, \
+                'selectedCategory': selectedCategory}))
 
     if request.method == 'GET':
         # Direct user to category manager

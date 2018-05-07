@@ -63,3 +63,8 @@ td.dayOfWeek {
     margin-top: 10px;
     padding-left: 20px;
 }
+
+.dayMemo {
+    font-family: cursive;
+    font-size: 13.5px;
+}
