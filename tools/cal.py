@@ -26,11 +26,11 @@ class Cal(calendar.HTMLCalendar):
         # Add memo links to the day (if any)
         if MemoCategory.objects.filter(userID=self.userID, name=self.selectedCategory).exists():
             memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
-                day__year=self.monthDay.year, category__name__contains=self.selectedCategory)
+                day__year=self.monthDay.year, category__name__contains=self.selectedCategory).order_by('startTime')
         # Return all memos by default (if category is not specified / is 'All')
         else:
             memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
-                day__year=self.monthDay.year)
+                day__year=self.monthDay.year).order_by('startTime')
         memosHTML = '<ul class="dayMemos">'
         for memo in memosForDay:
             # Add memo link to day on calendar
