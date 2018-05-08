@@ -29,6 +29,9 @@ th.dayOfWeek {
 th.month {
     text-align: center;
     background-color: seashell;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 1px 0px 3px 0px;
 }
 
 td.dayOfWeek {
@@ -42,7 +45,7 @@ td.dayOfWeek {
 }
 
 .separator {
-    margin: 0px 25px 0px 25px;
+    margin: 0px 10px 0px 10px;
 }
 
 /* #previous {
@@ -60,7 +63,7 @@ td.dayOfWeek {
 }
 
 .dayMemos {
-    margin-top: 10px;
+    margin-top: 6px;
     padding-left: 20px;
 }
 
@@ -70,6 +73,10 @@ td.dayOfWeek {
 }
 
 .memoOfMemos, #memo {
-  border: 1px solid black;
-  padding: 15px;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.pageLinks {
+    padding: 1.5px 0px;
 }

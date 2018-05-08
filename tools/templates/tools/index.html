@@ -9,7 +9,7 @@
         <h3>Hello, {{ user.username }}</h3>
 
         <ul>
-            <li><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
+            <li class='pageLinks'><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
         </ul>
     </div>
 
@@ -18,7 +18,7 @@
     <div>
         <h1>Planner</h1>
         <ul>
-            <li><a href="{% url 'calendarToday' %}">CALENDAR</a></li>
+            <li class='pageLinks'><a href="{% url 'calendarToday' %}">CALENDAR</a></li>
         </ul>
     </div>
 {% endblock %}
