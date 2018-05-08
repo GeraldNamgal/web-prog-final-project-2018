@@ -26,26 +26,28 @@
 
         {% for memo in memos %}
             <br>
-            <div class='memoOfMemos'>
-                <h2>{{ memo.day }}</h2><br>
+            <div class='memoContainer'>
+                <div class='memoOfMemos'>
+                    <h2>{{ memo.day }}</h2><br>
 
-                <h3>{{ memo.name }}</h3>
+                    <h3>{{ memo.name }}</h3>
 
-                {% if memo.startTime %}
-                    <div>Start Time: {{ memo.startTime }}</div>
-                {% endif %}
+                    {% if memo.startTime %}
+                        <div>Start Time: {{ memo.startTime }}</div>
+                    {% endif %}
 
-                {% if memo.endTime %}
-                    <div>End Time: {{ memo.endTime }}</div>
-                {% endif %}
+                    {% if memo.endTime %}
+                        <div>End Time: {{ memo.endTime }}</div>
+                    {% endif %}
 
-                {% if memo.category %}
-                    <div>Category: {{ memo.category.name }}</div>
-                {% endif %}
+                    {% if memo.category %}
+                        <div>Category: {{ memo.category.name }}</div>
+                    {% endif %}
 
-                {% if memo.description %}
-                    <div>Description: {{ memo.description }}</div>
-                {% endif %}
+                    {% if memo.description %}
+                        <div>Description: {{ memo.description }}</div>
+                    {% endif %}
+                </div>
             </div>
         {% endfor %}
     </div>
