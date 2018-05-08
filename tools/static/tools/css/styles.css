@@ -59,11 +59,11 @@ td.dayOfWeek {
 #calendarNav {
     display: table;
     margin: 0 auto;
-    padding: 5px 0px 17px 0px;
+    padding: 5px 0px 15px 0px;
 }
 
 .dayMemos {
-    margin-top: 6px;
+    margin-top: 4px;
     padding-left: 20px;
 }
 
