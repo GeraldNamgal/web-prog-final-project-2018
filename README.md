@@ -24,10 +24,18 @@ index page has the heading 'Planner' underneath of which is a link to the calend
 calendar app allows users to view a calendar on the screen with memos that they can
 add to it by hitting the 'ADD MEMO' link on the Calendar page. Besides the date, memos
 include a name and optionally a category, start and end time and description. Users
-can filter memos displayed on the calendar by category. They can also add and delete
-categories for their memos by hitting the 'MANAGE CATEGORIES' link on the calendar
-page. The navigation just above the calendar allows users to switch to previous and
-future months.
+can filter memos displayed on the calendar by category using the 'Filter' dropdown
+above the calendar. They can also add and delete categories for their memos by hitting
+the 'MANAGE CATEGORIES' link on the calendar page. The 'VIEW MEMOS' link should direct
+the users to a page that lists all their memos for the month. Clicking on the memos in
+the calendar itself will direct users to a page with that memo's information. The
+navigation just above the calendar allows users to switch to previous and future
+months.
+
+I have some Lorem Ipsum type data already in the database for the superuser account,
+'gerald'. The data should make it easier to play around with the app and get a feel
+for what it has to offer. Again, feel free to add, delete, and/or change the data and
+user accounts around for grading purposes.
 
 There are things I wanted to do that I didn't accomplish. One thing was that I
 wanted to be able to allow users to highlight their memos on the calendar

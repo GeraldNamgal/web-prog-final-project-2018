@@ -279,7 +279,7 @@ def viewMemos(request, monthDay, selectedCategory):
     # Get context to send to template
     context = {
         'memos': Memo.objects.filter(day__month=monthDayToDate.month, \
-            day__year=monthDayToDate.year).order_by('day'),
+            userID=request.user.id, day__year=monthDayToDate.year).order_by('day'),
         'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
             'selectedCategory': selectedCategory}),
         'monthDayToDate': monthDayToDate

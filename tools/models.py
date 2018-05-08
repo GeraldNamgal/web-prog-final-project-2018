@@ -6,7 +6,8 @@ class MemoCategory(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
-        return f'{User.objects.get(pk=self.userID).username} has Memo Category "{self.name}"'
+        return f'{User.objects.get(pk=self.userID).username} (userID# {self.userID}) \
+            has Memo Category "{self.name}"'
 
 class Memo(models.Model):
     userID = models.IntegerField()
@@ -18,4 +19,5 @@ class Memo(models.Model):
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return f'{User.objects.get(pk=self.userID).username} made Memo "{self.name}" [{self.day}]'
+        return f'{User.objects.get(pk=self.userID).username} (userID# {self.userID}) \
+            made Memo "{self.name}" [{self.day}], Start Time = [{self.startTime}], Category = [{self.category}]'
