@@ -272,5 +272,16 @@ def memo(request, monthDay, memoID, selectedCategory):
 
         return render(request, 'tools/error.html', context)
 
-def viewMemos(request):
-    return render(request, 'tools/viewMemos.html')
+def viewMemos(request, monthDay, selectedCategory):
+    # Convert date string to date object
+    monthDayToDate = datetime.datetime.strptime(monthDay, '%Y-%m-%d')
+
+    # Get context to send to template
+    context = {
+        'memos': Memo.objects.filter(day__month=monthDayToDate.month, \
+            day__year=monthDayToDate.year),
+        'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
+            'selectedCategory': selectedCategory})
+    }
+
+    return render(request, 'tools/viewMemos.html', context)

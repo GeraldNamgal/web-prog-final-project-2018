@@ -14,5 +14,5 @@ urlpatterns = [
     path('<str:date>/calendar', views.cal, name='calendarDate'),
     path('<str:date>/<str:selectedCategory>/calendar', views.cal, name='calendarState'),
     path('<str:monthDay>/<int:memoID>/<str:selectedCategory>/memo', views.memo, name='memo'),
-    path('viewMemos', views.viewMemos, name='viewMemos')
+    path('<str:monthDay>/<str:selectedCategory>/viewMemos', views.viewMemos, name='viewMemos')
 ]

@@ -68,3 +68,8 @@ td.dayOfWeek {
     font-family: cursive;
     font-size: 13.5px;
 }
+
+.memoOfMemos {
+  border: 1px solid black;
+  padding: 15px;
+}

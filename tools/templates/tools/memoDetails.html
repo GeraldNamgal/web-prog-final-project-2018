@@ -19,7 +19,7 @@
 {% block body %}
     <div>
         <ul>
-          <!-- In views.py, have context = {'returnURL': reverse(viewname='someUrlName', kwargs={'arg': arg})} -->
+            <!-- In views.py, have context = {'returnURL': reverse(viewname='someUrlName', kwargs={'arg': arg})} -->
             <li><a href='{{ returnURL }}'>CALENDAR</a></li>
             <li><a href="{% url 'index' %}">MAIN</a></li>
             <li><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
