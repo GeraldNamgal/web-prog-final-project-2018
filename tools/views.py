@@ -286,3 +286,13 @@ def viewMemos(request, monthDay, selectedCategory):
     }
 
     return render(request, 'tools/viewMemos.html', context)
+
+def deleteMemo(request):
+    # Get memo ID from form
+    memoID = request.POST.get('memoID')
+
+    # Delete memo from database if exists
+    if Memo.objects.filter(pk=memoID).exists():
+        Memo.objects.get(pk=memoID).delete()
+
+    return HttpResponseRedirect(reverse(viewname='calendarToday'))
