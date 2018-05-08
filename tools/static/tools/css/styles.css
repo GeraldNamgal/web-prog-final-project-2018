@@ -24,6 +24,7 @@ th.month, th.dayOfWeek, td.dayOfWeek {
 th.dayOfWeek {
     text-align: center;
     background-color: #eeeeee;
+    font-weight: 500;
 }
 
 th.month {
