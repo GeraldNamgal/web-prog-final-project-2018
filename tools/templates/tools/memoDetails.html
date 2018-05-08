@@ -36,17 +36,17 @@
 
         <form action='{% url 'addMemo' monthDay selectedCategory %}' method='post'>
             {% csrf_token %}
-            <input name='name' type='text' placeholder='Name' required><br>
+            <input style='margin-bottom:7px;' name='name' type='text' placeholder='Name' required><br>
             <label class='labelCategory'>Category:</label>
-            <select type='text' name='category'>
+            <select style='margin-bottom:7px;' type='text' name='category'>
                 <option value='select' selected value> -- select -- </option>
                 {% for category in categories  %}
                     <option value='{{ category.name }}'>{{ category.name }}</option>
                 {% endfor %}
             </select><br>
-            <input name='date' type='text' class='datepicker' placeholder='Date' required><br>
-            <label for='startTime'>Start Time:</label><input name='startTime' type='time' id='startTime'><br>
-            <label for='endTime'>End Time:</label><input name='endTime' type='time' id='endTime'><br>
+            <input style='margin-bottom:7px;' name='date' type='text' class='datepicker' placeholder='Date' required><br>
+            <label for='startTime'>Start Time:</label><input style='margin-bottom:7px;' name='startTime' type='time' id='startTime'><br>
+            <label for='endTime'>End Time:</label><input style='margin-bottom:7px;' name='endTime' type='time' id='endTime'><br>
             <textarea name='description' rows='5' cols='50' placeholder='Description'></textarea>
             <input type='submit' value='Add to Calendar'>
         </form>

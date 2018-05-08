@@ -31,15 +31,25 @@ class Cal(calendar.HTMLCalendar):
         else:
             memosForDay = Memo.objects.filter(userID=self.userID, day__day=day, day__month=self.monthDay.month, \
                 day__year=self.monthDay.year).order_by('startTime')
+
         memosHTML = '<ul class="dayMemos">'
         for memo in memosForDay:
             # Add memo link to day on calendar
             url = reverse(viewname='memo', kwargs={'monthDay':(self.monthDay).strftime('%Y-%m-%d'), \
                 'memoID': memo.pk, 'selectedCategory': self.selectedCategory})
+
             if memo.category is not None:
-                memosHTML += f'<li class="dayMemo {memo.category.name}"><a href={url}>{memo.name}</a></li>'
+                if memo.startTime is not None:
+                    startTime = memo.startTime.strftime('%I:%M %p')
+                    memosHTML += f'<li class="dayMemo {memo.category.name}"><a href={url}>[{startTime}]: {memo.name}</a></li>'
+                else:
+                    memosHTML += f'<li class="dayMemo {memo.category.name}"><a href={url}>{memo.name}</a></li>'
             else:
-                memosHTML += f'<li class="dayMemo"><a href={url}>{memo.name}</a></li>'
+                if memo.startTime is not None:
+                    startTime = memo.startTime.strftime('%I:%M %p')
+                    memosHTML += f'<li class="dayMemo"><a href={url}>[{startTime}]: {memo.name}</a></li>'
+                else:
+                    memosHTML += f'<li class="dayMemo"><a href={url}>{memo.name}</a></li>'
         memosHTML += '</ul>'
 
         if day == 0:
