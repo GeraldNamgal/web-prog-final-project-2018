@@ -19,8 +19,10 @@
 {% block body %}
     <div>
         <ul>
+          <!-- In views.py, have context = {'returnURL': reverse(viewname='someUrlName', kwargs={'arg': arg})} -->
+            <li><a href='{{ returnURL }}'>CALENDAR</a></li>
             <li><a href="{% url 'index' %}">MAIN</a></li>
-            <li class='liNav'><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
+            <li><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
         </ul>
     </div>
 
@@ -45,8 +47,5 @@
             <textarea name='description' rows='5' cols='50' placeholder='Description'></textarea>
             <input type='submit' value='Add to Calendar'>
         </form>
-
-        <!-- In views.py, have context = {'returnURL': reverse(viewname='someUrlName', kwargs={'arg': arg})} -->
-        <br><div>Click<a href='{{ returnURL }}'>&nbsp;HERE&nbsp;</a>to return to CALENDAR.</div>
     </div>
 {% endblock %}

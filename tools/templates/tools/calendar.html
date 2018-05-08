@@ -31,8 +31,9 @@
     <div>
         <h1>Calendar</h1>
         <ul>
-            <li><a href="{% url 'addMemo' monthDay selectedCategory %}">ADD&nbsp;MEMO</a></li>
+            <li><a href="{% url 'viewMemos' %}">VIEW&nbsp;MEMOS</a></li>
             <ul>
+                <li><a href="{% url 'addMemo' monthDay selectedCategory %}">ADD&nbsp;MEMO</a></li>
                 <li><a href="{% url 'memoCategoryManager' monthDay selectedCategory None %}">MANAGE&nbsp;CATEGORIES</a></li>
             </ul>
         </ul>

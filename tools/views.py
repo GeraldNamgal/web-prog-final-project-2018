@@ -151,7 +151,7 @@ def addMemo(request, monthDay, selectedCategory):
             category = None
 
         # Get date from form; do validity checks and necessary conversions
-        date = request.POST.get('date')
+        date = request.POST.get('date').strip()
         validDate = None
         try:
             date = datetime.datetime.strptime(date, '%m/%d/%Y')
@@ -271,3 +271,6 @@ def memo(request, monthDay, memoID, selectedCategory):
         }
 
         return render(request, 'tools/error.html', context)
+
+def viewMemos(request):
+    return render(request, 'tools/viewMemos.html')

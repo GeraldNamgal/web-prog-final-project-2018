@@ -1,0 +1,22 @@
+{% extends 'tools/base.html' %}
+
+{% block title %}
+    Memos
+{% endblock %}
+
+{% block body %}
+    <div>
+        <ul>
+            <li><a href="{% url 'calendarToday' %}">CALENDAR</a></li>
+            <li><a href="{% url 'logout' %}">LOG&nbsp;OUT</a></li>
+        </ul>
+    </div>
+
+    <br>
+
+    <div>
+        <h1>Memos</h1>
+
+
+    </div>
+{% endblock %}
