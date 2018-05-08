@@ -18,11 +18,11 @@
     <br>
 
     <div>
-        <h1>Memo Category</h1>
+        <h1 style='margin-bottom:25px;'>Memo Category</h1>
 
         {{ message }}
 
-        <form action='{% url 'memoCategoryManager' monthDay selectedCategory 'add' %}' method='post'>
+        <form style='margin-bottom:7px;' action='{% url 'memoCategoryManager' monthDay selectedCategory 'add' %}' method='post'>
             {% csrf_token %}
             <input name='name' type='text' placeholder='Category' required>
             <input type='submit' value='Add Category'>
@@ -30,7 +30,6 @@
 
         <form action='{% url 'memoCategoryManager' monthDay selectedCategory 'delete' %}' method='post'>
             {% csrf_token %}
-            <label class='category'>Category:</label>
             <select type='text' name='name'>
                 <option value='select' selected value> -- select -- </option>
                 {% for category in categories  %}
