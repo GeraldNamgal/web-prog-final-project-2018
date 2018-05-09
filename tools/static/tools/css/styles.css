@@ -2,6 +2,10 @@ body {
     margin: 20px;
 }
 
+a {
+    color: #0088CE;
+}
+
 label[for=startTime], label[for=endTime] {
     margin-right: 5px;
 }
