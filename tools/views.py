@@ -257,7 +257,9 @@ def memo(request, monthDay, memoID, selectedCategory):
             # 'memoID' is unique to user (don't need to filter by 'userID')
             'memo': Memo.objects.get(pk=memoID),
             'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
-                'selectedCategory': selectedCategory})
+                'selectedCategory': selectedCategory}),
+            'monthDay': monthDay,
+            'selectedCategory': selectedCategory
         }
 
         # Return user to the Memo's information page
@@ -282,12 +284,14 @@ def viewMemos(request, monthDay, selectedCategory):
             userID=request.user.id, day__year=monthDayToDate.year).order_by('day'),
         'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
             'selectedCategory': selectedCategory}),
-        'monthDayToDate': monthDayToDate
+        'monthDayToDate': monthDayToDate,
+        'monthDay': monthDay,
+        'selectedCategory': selectedCategory
     }
 
     return render(request, 'tools/viewMemos.html', context)
 
-def deleteMemo(request):
+def deleteMemo(request, monthDay, selectedCategory):
     # Get memo ID from form
     memoID = request.POST.get('memoID')
 
@@ -295,4 +299,6 @@ def deleteMemo(request):
     if Memo.objects.filter(pk=memoID).exists():
         Memo.objects.get(pk=memoID).delete()
 
-    return HttpResponseRedirect(reverse(viewname='calendarToday'))
+    # Return user to calendar (with state remembered)
+    return HttpResponseRedirect(reverse(viewname='calendarState', kwargs={'date': monthDay, \
+        'selectedCategory': selectedCategory}))
