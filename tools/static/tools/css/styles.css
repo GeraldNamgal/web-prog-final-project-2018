@@ -90,3 +90,8 @@ td.dayOfWeek {
 .pageLinks {
     padding: 1.5px 0px;
 }
+
+.memoOfMemos h2, #memo h2 {
+    background-color: lightgray;
+    padding: 5px;
+}

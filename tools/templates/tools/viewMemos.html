@@ -28,7 +28,7 @@
             <br>
             <div class='memoContainer'>
                 <div class='memoOfMemos'>
-                    <h2 style='background-color:lightgray;'>{{ memo.day }}</h2><br>
+                    <h2>{{ memo.day }}</h2><br>
 
                     <h3>{{ memo.name }}</h3>
 
@@ -48,7 +48,7 @@
                         <div>Description: {{ memo.description }}</div>
                     {% endif %}
 
-                    <form style='margin-top:15px;' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
+                    <form style='margin-top:20px;' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
                         {% csrf_token %}
                         <input type='hidden' name='memoID' value='{{ memo.pk }}'>
                         <input type='submit' value='Delete'>
