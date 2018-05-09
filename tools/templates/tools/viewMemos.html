@@ -21,14 +21,14 @@
         {% if memos.0.day %}
             <h1>{{ monthDayToDate|date:'F' }} {{ monthDayToDate|date:'Y' }}</h1>
         {% else %}
-            <h1>No memos to show for {{ monthDayToDate|date:'F' }} {{ monthDayToDate|date:'Y' }}.</h1>
+            <h1>No memos for {{ monthDayToDate|date:'F' }} {{ monthDayToDate|date:'Y' }}.</h1>
         {% endif %}
 
         {% for memo in memos %}
             <br>
             <div class='memoContainer'>
                 <div class='memoOfMemos'>
-                    <h2>{{ memo.day }}</h2><br>
+                    <h2 style='background-color:lightgray;'>{{ memo.day }}</h2><br>
 
                     <h3>{{ memo.name }}</h3>
 
