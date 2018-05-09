@@ -128,13 +128,24 @@ def addMemo(request, monthDay, selectedCategory):
     # Get Memo categories
     memoCategories = MemoCategory.objects.filter(userID=request.user.id)
 
+    # Check if monthDay is today's month
+    todaysDate = datetime.date.today()
+    monthDayToDate = datetime.datetime.strptime(monthDay, '%Y-%m-%d')
+    if ((monthDayToDate.month == todaysDate.month) and (monthDayToDate.year == todaysDate.year)):
+        todaysMonth = True
+    else:
+        todaysMonth = None
+
     # Create context to send to template
     context = {
         'categories': memoCategories,
         'monthDay': monthDay,
         'selectedCategory': selectedCategory,
         'returnURL': reverse(viewname='calendarState', kwargs={'date': monthDay, \
-            'selectedCategory': selectedCategory})
+            'selectedCategory': selectedCategory}),
+        'todaysMonth': todaysMonth,
+        'todayMonth': int(monthDayToDate.month - 1),
+        'todayYear': int(monthDayToDate.year)
     }
 
     if request.method == 'POST':
