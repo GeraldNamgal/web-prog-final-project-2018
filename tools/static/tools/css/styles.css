@@ -95,3 +95,7 @@ td.dayOfWeek {
     background-color: lightgray;
     padding: 5px;
 }
+
+.deleteButton {
+    margin-top: 20px;
+}
