@@ -261,7 +261,7 @@ def memoCategoryManager(request, monthDay, selectedCategory, operation):
         # Direct user to category manager
         return render(request, 'tools/memoCategory.html', context)
 
-def memo(request, monthDay, memoID, selectedCategory):
+def memo(request, monthDay, memoID, selectedCategory, operation=None):
     # Get context to send to template; 'memoID' is unique to user (don't need to filter by 'userID')
     if Memo.objects.filter(pk=memoID).exists():
         context = {
@@ -272,6 +272,10 @@ def memo(request, monthDay, memoID, selectedCategory):
             'monthDay': monthDay,
             'selectedCategory': selectedCategory
         }
+
+        # If the request method was POST, then the user wants to delete the memo
+        if operation == 'confirm':
+            context['confirm'] = True
 
         # Return user to the Memo's information page
         return render(request, 'tools/memo.html', context)

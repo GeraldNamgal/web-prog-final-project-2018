@@ -39,11 +39,31 @@
                 <div>Description: {{ memo.description }}</div>
             {% endif %}
 
-            <form class='deleteButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
-                {% csrf_token %}
-                <input type='hidden' name='memoID' value='{{ memo.pk }}'>
-                <input type='submit' value='Delete'>
-            </form>
+            {% if not confirm %}
+                <form class='deleteButton' action="{% url 'confirmDelete' monthDay memo.pk selectedCategory 'confirm' %}" method='post'>
+                    {% csrf_token %}
+                    <input type='submit' value='Delete'>
+                </form>
+            {% endif %}
         </div>
     </div>
+
+    {% if confirm %}
+        <br>
+        <div style='margin-bottom: 10px;'>
+            Are you sure you want to delete this memo?
+        </div>
+
+        <form id='yesButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
+            {% csrf_token %}
+            <input type='hidden' name='memoID' value='{{ memo.pk }}'>
+            <input type='submit' value='Yes'>
+        </form>
+
+        <!-- TODO: Make a form/action for the No button -->
+        <form id='noButton' action="{% url 'memo' monthDay memo.pk selectedCategory %}" method='post'>
+            {% csrf_token %}
+            <input type='submit' value='No'>
+        </form>
+    {% endif %}
 {% endblock %}

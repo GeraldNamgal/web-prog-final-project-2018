@@ -45,7 +45,7 @@ td.dayOfWeek {
     vertical-align: top;
 }
 
-#previous, #next, #todayCalendar, .separator {
+#previous, #next, #todayCalendar, .separator, #yesButton, #noButton {
     display: inline-block;
 }
 
