@@ -48,9 +48,8 @@
                         <div>Description: {{ memo.description }}</div>
                     {% endif %}
 
-                    <form class='deleteButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
+                    <form class='deleteButton' action="{% url 'confirmDelete' monthDay memo.pk selectedCategory 'confirmMemos' %}" method='post'>
                         {% csrf_token %}
-                        <input type='hidden' name='memoID' value='{{ memo.pk }}'>
                         <input type='submit' value='Delete'>
                     </form>
                 </div>

@@ -274,8 +274,10 @@ def memo(request, monthDay, memoID, selectedCategory, operation=None):
         }
 
         # If the request method was POST, then the user wants to delete the memo
-        if operation == 'confirm':
-            context['confirm'] = True
+        if operation == 'confirmMemo':
+            context['confirmMemo'] = True
+        if operation == 'confirmMemos':
+            context['confirmMemos'] = True
 
         # Return user to the Memo's information page
         return render(request, 'tools/memo.html', context)

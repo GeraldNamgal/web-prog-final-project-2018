@@ -39,31 +39,41 @@
                 <div>Description: {{ memo.description }}</div>
             {% endif %}
 
-            {% if not confirm %}
-                <form class='deleteButton' action="{% url 'confirmDelete' monthDay memo.pk selectedCategory 'confirm' %}" method='post'>
-                    {% csrf_token %}
-                    <input type='submit' value='Delete'>
-                </form>
+            {% if not confirmMemo %}
+                {% if not confirmMemos %}
+                    <form class='deleteButton' action="{% url 'confirmDelete' monthDay memo.pk selectedCategory 'confirmMemo' %}" method='post'>
+                        {% csrf_token %}
+                        <input type='submit' value='Delete'>
+                    </form>
+                {% endif %}
             {% endif %}
         </div>
     </div>
 
-    {% if confirm %}
+    {% if confirmMemo or confirmMemos %}
         <br>
         <div style='margin-bottom: 10px;'>
             Are you sure you want to delete this memo?
         </div>
 
+        <!-- TODO: Make delete from memo return to calendar and delte from viewMemos to viewMemos -->
         <form id='yesButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
             {% csrf_token %}
             <input type='hidden' name='memoID' value='{{ memo.pk }}'>
             <input type='submit' value='Yes'>
         </form>
 
-        <!-- TODO: Make a form/action for the No button -->
-        <form id='noButton' action="{% url 'memo' monthDay memo.pk selectedCategory %}" method='post'>
-            {% csrf_token %}
-            <input type='submit' value='No'>
-        </form>
+        {% if confirmMemo %}
+            <form id='noButton' action="{% url 'memo' monthDay memo.pk selectedCategory %}" method='post'>
+                {% csrf_token %}
+                <input type='submit' value='No'>
+            </form>
+
+        {% elif confirmMemos %}
+            <form id='noButton' action="{% url 'viewMemos' monthDay selectedCategory %}" method='post'>
+                {% csrf_token %}
+                <input type='submit' value='No'>
+            </form>
+        {% endif %}
     {% endif %}
 {% endblock %}
