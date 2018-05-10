@@ -43,6 +43,7 @@ td.dayOfWeek {
     width: 160px;
     height: 175px;
     vertical-align: top;
+    background-color: white;
 }
 
 #previous, #next, #todayCalendar, .separator, #yesButton, #noButton {
@@ -76,15 +77,10 @@ td.dayOfWeek {
     font-size: 12.5px;
 }
 
-.memoContainer {
-    background-color: seashell;
-    padding: 17px;
-}
-
 .memoOfMemos, #memo {
     border: .5px solid black;
     padding: 13px;
-    background-color: #eeeeee;
+    background-color: white;
 }
 
 .pageLinks {
@@ -92,7 +88,7 @@ td.dayOfWeek {
 }
 
 .memoOfMemos h2, #memo h2 {
-    background-color: lightgray;
+    background-color: #eeeeee;
     padding: 5px;
 }
 
