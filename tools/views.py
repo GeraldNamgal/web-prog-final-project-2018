@@ -316,6 +316,10 @@ def deleteMemo(request, monthDay, selectedCategory):
     if Memo.objects.filter(pk=memoID).exists():
         Memo.objects.get(pk=memoID).delete()
 
-    # Return user to calendar (with state remembered)
-    return HttpResponseRedirect(reverse(viewname='calendarState', kwargs={'date': monthDay, \
-        'selectedCategory': selectedCategory}))
+    # Return user to proper page
+    if request.POST.get('confirm') == 'confirmMemo':
+        return HttpResponseRedirect(reverse(viewname='calendarState', kwargs={'date': monthDay, \
+            'selectedCategory': selectedCategory}))
+    if request.POST.get('confirm') == 'confirmMemos':
+        return HttpResponseRedirect(reverse(viewname='viewMemos', kwargs={'monthDay': monthDay, \
+            'selectedCategory': selectedCategory}))

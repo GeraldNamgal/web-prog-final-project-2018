@@ -56,20 +56,25 @@
             Are you sure you want to delete this memo?
         </div>
 
-        <!-- TODO: Make delete from memo return to calendar and delte from viewMemos to viewMemos -->
-        <form id='yesButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
-            {% csrf_token %}
-            <input type='hidden' name='memoID' value='{{ memo.pk }}'>
-            <input type='submit' value='Yes'>
-        </form>
-
         {% if confirmMemo %}
+            <form id='yesButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
+                {% csrf_token %}
+                <input type='hidden' name='memoID' value='{{ memo.pk }}'>
+                <input type='hidden' name='confirm' value='confirmMemo'>
+                <input type='submit' value='Yes'>
+            </form>
             <form id='noButton' action="{% url 'memo' monthDay memo.pk selectedCategory %}" method='post'>
                 {% csrf_token %}
                 <input type='submit' value='No'>
             </form>
 
         {% elif confirmMemos %}
+            <form id='yesButton' action="{% url 'deleteMemo' monthDay selectedCategory %}" method='post'>
+                {% csrf_token %}
+                <input type='hidden' name='memoID' value='{{ memo.pk }}'>
+                <input type='hidden' name='confirm' value='confirmMemos'>
+                <input type='submit' value='Yes'>
+            </form>
             <form id='noButton' action="{% url 'viewMemos' monthDay selectedCategory %}" method='post'>
                 {% csrf_token %}
                 <input type='submit' value='No'>
