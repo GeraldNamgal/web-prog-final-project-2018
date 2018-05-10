@@ -28,7 +28,8 @@ can filter memos displayed on the calendar by category using the 'Filter' dropdo
 above the calendar. They can also add and delete categories for their memos by hitting
 the 'MANAGE CATEGORIES' link on the calendar page. The 'VIEW MEMOS' link should direct
 the users to a page that lists all their memos for the month. Clicking on the memos in
-the calendar itself will direct users to a page with that memo's information. The
+the calendar itself will direct users to a page with that memo's information. They can
+delete a memo from either VIEW MEMOS or from a singular memo's information page. The
 navigation just above the calendar allows users to switch to previous and future
 months.
 
