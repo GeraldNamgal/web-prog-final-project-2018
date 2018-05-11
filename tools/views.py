@@ -128,6 +128,13 @@ def addMemo(request, monthDay, selectedCategory, day=None):
     # Get Memo categories
     memoCategories = MemoCategory.objects.filter(userID=request.user.id)
 
+    # Get default date when user selects a day in the calendar in order to add a memo
+    if day is not None:
+        dayValue = datetime.datetime.strptime(day, '%Y-%m-%d')
+        dayValue = dayValue.strftime('%m/%d/%Y')
+    else:
+        dayValue = None
+
     # Check if monthDay is today's month
     todaysDate = datetime.date.today()
     monthDayToDate = datetime.datetime.strptime(monthDay, '%Y-%m-%d')
@@ -146,7 +153,8 @@ def addMemo(request, monthDay, selectedCategory, day=None):
         'todaysMonth': todaysMonth,
         'todayMonth': int(monthDayToDate.month - 1),
         'todayYear': int(monthDayToDate.year),
-        'day': day
+        'day': day,
+        'dayValue': dayValue
     }
 
     if request.method == 'POST':

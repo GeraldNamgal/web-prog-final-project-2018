@@ -35,7 +35,7 @@ class Cal(calendar.HTMLCalendar):
         memosHTML = '<ul class="dayMemos">'
         for memo in memosForDay:
             # Add memo link to day on calendar
-            memoURL = reverse(viewname='memo', kwargs={'monthDay':(self.monthDay).strftime('%Y-%m-%d'), \
+            memoURL = reverse(viewname='memo', kwargs={'monthDay': (self.monthDay).strftime('%Y-%m-%d'), \
                 'memoID': memo.pk, 'selectedCategory': self.selectedCategory})
 
             if memo.category is not None:
@@ -56,7 +56,12 @@ class Cal(calendar.HTMLCalendar):
             # For days that aren't in the current month
             return '<td class="noday"></td>'
         else:
-            return '<td class="%s">%d%s</td>' % (self.cssclasses[weekday], day, memosHTML)
+            # Make calendar day a link to add a memo for that day
+            calendarDay = self.monthDay
+            calendarDay = calendarDay.replace(day=day)
+            addMemoURL = reverse(viewname='addMemoDay', kwargs={'monthDay': (self.monthDay).strftime('%Y-%m-%d'), \
+                'selectedCategory': self.selectedCategory, 'day': calendarDay.strftime('%Y-%m-%d')})
+            return '<td class="%s"><a href=%s>%d</a>%s</td>' % (self.cssclasses[weekday], addMemoURL, day, memosHTML)
 
     def formatweek(self, theweek):
         htmlString = ''.join(self.formatday(day, weekday) for (day, weekday) in theweek)
