@@ -21,8 +21,9 @@ purposes of grading.
 My final project is a planner. I was hoping to create more than a calendar app for it
 but the calendar app became the focal point of the project soon after I started. The
 index page has the heading 'Planner' underneath of which is a link to the calendar. My
-calendar app allows users to view a calendar on the screen with memos that they can
-add to it by hitting the 'ADD MEMO' link on the Calendar page. Besides the date, memos
+calendar app allows users to view a calendar on the screen with 'memos' that they can
+add to it by hitting the 'ADD MEMO' link on the Calendar page. They can also add a
+memo by clicking on a day's number in the calendar itself. Besides the date, memos
 include a name and optionally a category, start and end time and description. Users
 can filter memos displayed on the calendar by category using the 'Filter' dropdown
 above the calendar. They can also add and delete categories for their memos by hitting
