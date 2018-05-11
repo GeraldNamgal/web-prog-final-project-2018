@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout', views.logoutView, name='logout'),
     path('register', views.register, name='register'),
     path('<str:monthDay>/<str:selectedCategory>/addMemo', views.addMemo, name='addMemo'),
+    path('<str:monthDay>/<str:selectedCategory>/<str:day>/addMemo', views.addMemo, name='addMemoDay'),
     # For 'operation' I used 'add', 'delete', or None
     path('<str:monthDay>/<str:selectedCategory>/<str:operation>/memoCategoryManager', views.memoCategoryManager, name='memoCategoryManager'),
     path('calendar', views.cal, name='calendarToday'),

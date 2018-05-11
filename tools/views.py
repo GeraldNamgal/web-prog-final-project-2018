@@ -124,7 +124,7 @@ def cal(request, date=str(datetime.date.today()), selectedCategory='All'):
     # Return Calendar page
     return render(request, 'tools/calendar.html', context)
 
-def addMemo(request, monthDay, selectedCategory):
+def addMemo(request, monthDay, selectedCategory, day=None):
     # Get Memo categories
     memoCategories = MemoCategory.objects.filter(userID=request.user.id)
 
@@ -145,7 +145,8 @@ def addMemo(request, monthDay, selectedCategory):
             'selectedCategory': selectedCategory}),
         'todaysMonth': todaysMonth,
         'todayMonth': int(monthDayToDate.month - 1),
-        'todayYear': int(monthDayToDate.year)
+        'todayYear': int(monthDayToDate.year),
+        'day': day
     }
 
     if request.method == 'POST':
