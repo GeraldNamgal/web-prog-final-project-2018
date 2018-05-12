@@ -26,16 +26,18 @@ add to it by hitting the 'ADD MEMO' link on the Calendar page. They can also add
 memo by clicking on a day's number in the calendar itself. I tried to make navigating
 the calendar convenient; if a user is going to and from months and days I tried to
 follow a logical pattern of having default calendars, dates, return pages, etc. set as
-the user navigates the calendar. Nonetheless, besides the date, memos include a name
-and optionally a category, start and end time, and description. Users can filter memos
-displayed on the calendar by category using the 'Filter' dropdown above the calendar.
-They can also add and delete categories for their memos by hitting the 'MANAGE
-CATEGORIES' link on the calendar page. The 'VIEW MEMOS' link should direct the users
-to a page that lists all their memos for the month. Clicking on the memos in the
-calendar itself will direct users to a page with that memo's information. They can
-delete a memo from either VIEW MEMOS or from a singular memo's information page. Users
-will be asked to confirm the memo they wish to delete. The navigation just above the
-calendar allows users to switch to previous and future months.
+the user navigates the calendar. For example, when a user clicks on a day in order to
+add a memo, the date for that day becomes the default date in the add memo form.
+Nonetheless, besides the date, memos include a name and optionally a category, start
+and end time, and description. Users can filter memos displayed on the calendar by
+category using the 'Filter' dropdown above the calendar. They can also add and delete
+categories for their memos by hitting the 'MANAGE CATEGORIES' link on the calendar
+page. The 'VIEW MEMOS' link should direct the users to a page that lists all their
+memos for the month. Clicking on the memos in the calendar itself will direct users to
+a page with that memo's information. They can delete a memo from either VIEW MEMOS or
+from a singular memo's information page. Users will be asked to confirm the memo they
+wish to delete. The navigation just above the calendar allows users to switch to
+previous and future months.
 
 I have some Lorem Ipsum type data already in the database for the superuser account,
 'gerald'. The data should make it easier to play around with the app and get a feel
